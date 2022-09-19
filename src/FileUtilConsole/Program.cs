@@ -1,4 +1,12 @@
+using FileUtil.Common.Extensions;
+using Microsoft.Extensions.DependencyInjection;
+using RnCore.Logging;
 
+var serviceProvider = new ServiceCollection()
+  .AddLoggingAndConfiguration()
+  .AddFileUtils()
+  .BuildServiceProvider();
 
+var logger = serviceProvider.GetRequiredService<ILoggerAdapter<Program>>();
 
-Console.WriteLine("Hello, World!");
+logger.LogInformation("Hello World");

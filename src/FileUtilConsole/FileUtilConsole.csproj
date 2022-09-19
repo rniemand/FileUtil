@@ -5,6 +5,11 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <ProjectGuid>262A604A-7D14-4E0B-B922-19994950AFE3</ProjectGuid>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FileUtil.Common\FileUtil.Common.csproj" />
+  </ItemGroup>
 
 </Project>
