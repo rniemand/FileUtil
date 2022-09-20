@@ -29,9 +29,16 @@ public class MusicFileRenamer : IMusicFileRenamer
     config.ProblemDirParts = config.ProblemDir.ExtractDirParts();
     config.OutputDirParts = config.OutputDir.ExtractDirParts();
     config.SourceDirParts = config.SourceDir.ExtractDirParts();
+    var musicFiles = GetMusicFiles(config);
 
-    foreach (var mediaFile in GetMusicFiles(config))
+    if(musicFiles.Count == 0)
+      return;
+
+    var counter = 1;
+    _logger.LogInformation("Processing {count} music files", musicFiles.Count);
+    foreach (var mediaFile in musicFiles)
     {
+      _logger.LogTrace("Processing {count} of {total} file(s)", counter++, musicFiles.Count);
       var mp3Info = Mp3RenameHelper.ExtractMp3FileInfo(mediaFile, new MediaInfoWrapper(mediaFile.FullName), config.SourceDir);
 
       if (!mp3Info.IsValid())
