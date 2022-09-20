@@ -39,13 +39,20 @@ public class MusicFileRenamer : IMusicFileRenamer
 
     foreach (var mediaFile in musicFiles)
     {
-      _logger.LogTrace("Processing {count} of {total} file(s)", counter++, musicFiles.Count);
+      var baseMessage = $"\rProcessing {counter++} of {musicFiles.Count} file(s)";
+      //_logger.LogTrace("Processing {count} of {total} file(s)", counter++, musicFiles.Count);
       var mp3Info = Mp3RenameHelper.ExtractMp3FileInfo(mediaFile, new MediaInfoWrapper(mediaFile.FullName), config.SourceDir);
 
       if (!mp3Info.IsValid())
+      {
+        Console.Write($"{baseMessage} - BAD ");
         HandleErroneousFile(config, mediaFile);
+      }
       else
+      {
+        Console.Write($"{baseMessage} - GOOD");
         ProcessFileRename(config, mp3Info, mediaFile);
+      }
     }
   }
 
@@ -64,7 +71,7 @@ public class MusicFileRenamer : IMusicFileRenamer
   {
     if (!config.MoveProblematicFiles)
     {
-      _logger.LogWarning("Skipping file: {file}", mediaFile.FullName);
+      //_logger.LogWarning("Skipping file: {file}", mediaFile.FullName);
       return;
     }
 
@@ -86,7 +93,7 @@ public class MusicFileRenamer : IMusicFileRenamer
     if (File.Exists(errorPath))
       File.Delete(errorPath);
 
-    _logger.LogDebug("Moving problem file: \n\t{original} => \n\t{new}", mediaFile.FullName, errorPath);
+    //_logger.LogDebug("Moving problem file: \n\t{original} => \n\t{new}", mediaFile.FullName, errorPath);
     File.Move(mediaFile.FullName, errorPath);
   }
 
@@ -103,7 +110,7 @@ public class MusicFileRenamer : IMusicFileRenamer
     if (!Directory.Exists(targetDir))
       Directory.CreateDirectory(targetDir);
 
-    _logger.LogInformation("Renaming:\n\t{old} => \n\t{new}", fileInfo.FullName, targetFileName);
+    //_logger.LogInformation("Renaming:\n\t{old} => \n\t{new}", fileInfo.FullName, targetFileName);
 
     if (File.Exists(targetFileName))
       File.Delete(targetFileName);

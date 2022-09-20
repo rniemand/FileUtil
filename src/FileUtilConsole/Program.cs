@@ -8,7 +8,7 @@ var serviceProvider = new ServiceCollection()
   .AddFileUtils()
   .BuildServiceProvider();
 
-const string scanDir = @"\\192.168.0.60\Documents\Gus-Documents\[Unsorted]\Music\F";
+const string scanDir = @"\\192.168.0.60\Documents\Gus-Documents\[Unsorted]\Music\N";
 
 /*
  * Task List

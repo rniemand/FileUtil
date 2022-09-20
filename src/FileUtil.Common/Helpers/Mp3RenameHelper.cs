@@ -64,6 +64,8 @@ public class Mp3RenameHelper
   private static void CleanAlbumTitle(Mp3FileInfo songInfo)
   {
     var album = songInfo.AlbumTitle;
+    if(string.IsNullOrWhiteSpace(album))
+      return;
 
     if (album.Contains("(") && album.Contains(")"))
       songInfo.AlbumTitle = album.Split("(")[0].Trim();
@@ -78,6 +80,8 @@ public class Mp3RenameHelper
   private static void CleanArtist(Mp3FileInfo songInfo)
   {
     var artist = songInfo.Artist;
+    if(string.IsNullOrWhiteSpace(artist))
+      return;
 
     if (artist.Contains("/"))
       songInfo.Artist = artist.Split("/")[0].Trim();
@@ -89,6 +93,8 @@ public class Mp3RenameHelper
   private static void CleanSongTitle(Mp3FileInfo songInfo)
   {
     var title = songInfo.SongTitle;
+    if(string.IsNullOrWhiteSpace(title))
+      return;
 
     if (title.Contains("/"))
       songInfo.SongTitle = title.Split("/")[0].Trim();
