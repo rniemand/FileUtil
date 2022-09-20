@@ -11,23 +11,9 @@ public class Mp3RenameHelper
     new Regex("([^\\/]+)\\/([^-]+) - ([^\\.]+)\\.\\w{3,4}", RegexOptions.Compiled)
   };
 
-  public static string Process(Mp3FileInfo info, string template)
-  {
-    return template
-      .Replace("{ext}", info.FileExtension)
-      .Replace("{albumTitle}", info.AlbumTitle)
-      .Replace("{songTitle}", info.SongTitle)
-      .Replace("{artist}", info.Artist)
-      .Replace("{aDirLetter}", info.ArtistDirLetter)
-      .Replace("{songNumber}", info.SongPosition.PadLeftInt(2))
-      .Replace("{songNumber3}", info.SongPosition.PadLeftInt(3))
-      .Replace("{songYear}", info.SongDate.Year.ToString("D"))
-      .ToSafeFilePath();
-  }
-
   public static Mp3FileInfo ExtractMp3FileInfo(FileInfo file, MediaInfoWrapper mi, string rootDir)
   {
-    var mp3FileInfo = new Mp3FileInfo
+    var mp3FileInfo = new Mp3FileInfo(file)
     {
       AlbumTitle = mi.Tags.Album,
       SongTitle = mi.Tags.Title,
@@ -54,6 +40,10 @@ public class Mp3RenameHelper
     // Dynamically calculated properties
     mp3FileInfo.ArtistDirLetter = mp3FileInfo.Artist.GetFirstDirLetter();
 
+    CleanAlbumTitle(mp3FileInfo);
+    CleanArtist(mp3FileInfo);
+    CleanSongTitle(mp3FileInfo);
+
     return mp3FileInfo;
   }
 
@@ -69,5 +59,44 @@ public class Mp3RenameHelper
     fileInfo.SongTitle = match.Groups[3].Value;
 
     return true;
+  }
+
+  private static void CleanAlbumTitle(Mp3FileInfo songInfo)
+  {
+    var album = songInfo.AlbumTitle;
+
+    if (album.Contains("(") && album.Contains(")"))
+      songInfo.AlbumTitle = album.Split("(")[0].Trim();
+
+    if (album.Contains("/"))
+      songInfo.AlbumTitle = album.Split("/")[0].Trim();
+
+    if (album.Contains("\\"))
+      songInfo.AlbumTitle = album.Split("\\")[0].Trim();
+  }
+
+  private static void CleanArtist(Mp3FileInfo songInfo)
+  {
+    var artist = songInfo.Artist;
+
+    if (artist.Contains("/"))
+      songInfo.Artist = artist.Split("/")[0].Trim();
+
+    if (artist.Contains("\\"))
+      songInfo.Artist = artist.Split("\\")[0].Trim();
+  }
+
+  private static void CleanSongTitle(Mp3FileInfo songInfo)
+  {
+    var title = songInfo.SongTitle;
+
+    if (title.Contains("/"))
+      songInfo.SongTitle = title.Split("/")[0].Trim();
+
+    if (title.Contains("\\"))
+      songInfo.SongTitle = title.Split("\\")[0].Trim();
+
+    if (title.Contains("(") && title.Contains(")"))
+      songInfo.SongTitle = title.Split("(")[0].Trim();
   }
 }

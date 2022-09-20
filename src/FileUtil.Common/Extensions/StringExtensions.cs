@@ -17,7 +17,7 @@ public static class StringExtensions
     if (int.TryParse(first, out var _))
       return "#";
 
-    if (first == "_")
+    if (first == "_" || first == "(")
       return "#";
 
     if (UpperAlphaRxp.IsMatch(first))
@@ -35,6 +35,12 @@ public static class StringExtensions
   public static bool IgnoreCaseEquals(this string src, string compare) =>
     src.Equals(compare, StringComparison.InvariantCultureIgnoreCase);
 
+  public static bool IgnoreCaseContains(this string src, string compare) =>
+    src.Contains(compare, StringComparison.InvariantCultureIgnoreCase);
+
+  public static bool IgnoreCaseStartsWith(this string src, string compare) =>
+    src.StartsWith(compare, StringComparison.InvariantCultureIgnoreCase);
+
   public static string ToSafeFilePath(this string filePath)
   {
     var parts = filePath.ExtractDirParts();
@@ -43,6 +49,8 @@ public static class StringExtensions
       .Replace(",", "")
       .Replace("\"", "")
       .Replace("?", "")
-      .Replace(":", "");
+      .Replace(":", "")
+      .Replace("<", "")
+      .Replace(">", "");
   }
 }

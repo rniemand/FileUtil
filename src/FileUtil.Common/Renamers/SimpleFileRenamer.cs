@@ -7,7 +7,7 @@ namespace FileUtil.Common.Renamers;
 
 public interface ISimpleFileRenamer
 {
-  void Rename(SimpleFileRenamerConfig config);
+  ISimpleFileRenamer Rename(SimpleFileRenamerConfig config);
 }
 
 public class SimpleFileRenamer : ISimpleFileRenamer
@@ -21,11 +21,11 @@ public class SimpleFileRenamer : ISimpleFileRenamer
 
 
   // Public methods
-  public void Rename(SimpleFileRenamerConfig config)
+  public ISimpleFileRenamer Rename(SimpleFileRenamerConfig config)
   {
     var files = GetMatchingFiles(config);
     if (files.Count == 0)
-      return;
+      return this;
 
     _logger.LogInformation("Processing {count} files", files.Count);
     foreach (var file in files)
@@ -48,6 +48,7 @@ public class SimpleFileRenamer : ISimpleFileRenamer
     }
 
     _logger.LogInformation("All done.");
+    return this;
   }
 
 

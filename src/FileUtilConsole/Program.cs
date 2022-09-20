@@ -8,47 +8,107 @@ var serviceProvider = new ServiceCollection()
   .AddFileUtils()
   .BuildServiceProvider();
 
-//serviceProvider
-//  .GetRequiredService<IMusicFileRenamer>()
-//  .Rename(new MusicFileRenamerConfig
-//  {
-//    SourceDir = @"D:\Test-Data\Music",
-//    OutputDir = @"D:\Test-Data\Renamed",
-//    ProblemDir = @"D:\Test-Data\Problems",
-//    MoveProblematicFiles = true,
-//    FileNamePattern = "{aDirLetter}\\{artist}\\{albumTitle}\\" +
-//                      "{songNumber} - {artist} - {songTitle} ({songYear}).{ext}"
-//  });
+const string scanDir = @"\\192.168.0.60\Documents\Gus-Documents\[Unsorted]\Karaoke\_batch";
 
-//serviceProvider
-//  .GetRequiredService<ISimpleFileRenamer>()
-//  .Rename(new SimpleFileRenamerConfig
-//  {
-//    SourceDir = @"D:\Test-Data\Music",
-//    OutputDir = @"D:\Test-Data\Renamed\Midi",
-//    FileExtension = ".mid",
-//    FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
-//  });
+serviceProvider
+  .GetRequiredService<IMusicFileRenamer>()
+  .Rename(new MusicFileRenamerConfig
+  {
+    SourceDir = scanDir,
+    OutputDir = @"\\192.168.0.60\Documents\Gus-Documents\Music",
+    ProblemDir = @"\\192.168.0.60\Documents\Gus-Documents\_Problems",
+    MoveProblematicFiles = true,
+    FileNamePattern = "{aDirLetter}\\{artist}\\{albumTitle}\\" +
+                      "{songNumber} - {artist} - {songTitle} ({songYear}).{ext}"
+  });
 
-//serviceProvider
-//  .GetRequiredService<ISimpleFileRenamer>()
-//  .Rename(new SimpleFileRenamerConfig
-//  {
-//    SourceDir = @"D:\Test-Data\Music",
-//    OutputDir = @"D:\Test-Data\Renamed\wav",
-//    FileExtension = ".wav",
-//    FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
-//  });
+serviceProvider
+  .GetRequiredService<ISimpleFileRenamer>()
+  .Rename(new SimpleFileRenamerConfig
+  {
+    SourceDir = scanDir,
+    OutputDir = @"\\192.168.0.60\Documents\Gus-Documents\cdg",
+    FileExtension = ".cdg",
+    FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
+  })
+  .Rename(new SimpleFileRenamerConfig
+  {
+    SourceDir = scanDir,
+    OutputDir = @"\\192.168.0.60\Documents\Gus-Documents\sxw",
+    FileExtension = ".sxw",
+    FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
+  })
+  .Rename(new SimpleFileRenamerConfig
+  {
+    SourceDir = scanDir,
+    OutputDir = @"\\192.168.0.60\Documents\Gus-Documents\cda",
+    FileExtension = ".cda",
+    FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
+  })
+  .Rename(new SimpleFileRenamerConfig
+  {
+    SourceDir = scanDir,
+    OutputDir = @"\\192.168.0.60\Documents\Gus-Documents\wav",
+    FileExtension = ".wav",
+    FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
+  })
+  .Rename(new SimpleFileRenamerConfig
+  {
+    SourceDir = scanDir,
+    OutputDir = @"\\192.168.0.60\Documents\Gus-Documents\midi",
+    FileExtension = ".mid",
+    FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
+  })
+  .Rename(new SimpleFileRenamerConfig
+  {
+    SourceDir = scanDir,
+    OutputDir = @"\\192.168.0.60\Documents\Gus-Documents\doc-files",
+    FileExtension = ".doc",
+    FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
+  })
+  .Rename(new SimpleFileRenamerConfig
+  {
+    SourceDir = scanDir,
+    OutputDir = @"\\192.168.0.60\Documents\Gus-Documents\doc-files",
+    FileExtension = ".rtf",
+    FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
+  })
+  .Rename(new SimpleFileRenamerConfig
+  {
+    SourceDir = scanDir,
+    OutputDir = @"\\192.168.0.60\Documents\Gus-Documents\kar",
+    FileExtension = ".kar",
+    FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
+  })
+  .Rename(new SimpleFileRenamerConfig
+  {
+    SourceDir = scanDir,
+    OutputDir = @"\\192.168.0.60\Documents\Gus-Documents\doc-files",
+    FileExtension = ".pdf",
+    FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
+  })
+  .Rename(new SimpleFileRenamerConfig
+  {
+    SourceDir = scanDir,
+    OutputDir = @"\\192.168.0.60\Documents\Gus-Documents\doc-files",
+    FileExtension = ".docx",
+    FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
+  })
+  .Rename(new SimpleFileRenamerConfig
+  {
+    SourceDir = scanDir,
+    OutputDir = @"\\192.168.0.60\Documents\Gus-Documents\doc-files",
+    FileExtension = ".odt",
+    FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
+  })
+  .Rename(new SimpleFileRenamerConfig
+  {
+    SourceDir = scanDir,
+    OutputDir = @"\\192.168.0.60\Documents\Gus-Documents\E-Books",
+    FileExtension = ".epub",
+    FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
+  });
 
-//serviceProvider
-//  .GetRequiredService<ISimpleFileRenamer>()
-//  .Rename(new SimpleFileRenamerConfig
-//  {
-//    SourceDir = @"D:\Test-Data\Music",
-//    OutputDir = @"D:\Test-Data\Renamed\cdg",
-//    FileExtension = ".cdg",
-//    FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
-//  });
 
 Console.WriteLine();
 Console.WriteLine();

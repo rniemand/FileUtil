@@ -34,7 +34,7 @@ public class MusicFileRenamer : IMusicFileRenamer
     {
       var mp3Info = Mp3RenameHelper.ExtractMp3FileInfo(mediaFile, new MediaInfoWrapper(mediaFile.FullName), config.SourceDir);
 
-      if (!mp3Info.Success)
+      if (!mp3Info.IsValid())
         HandleErroneousFile(config, mediaFile);
       else
         ProcessFileRename(config, mp3Info, mediaFile);
@@ -82,11 +82,13 @@ public class MusicFileRenamer : IMusicFileRenamer
     File.Move(mediaFile.FullName, errorPath);
   }
 
-  private void ProcessFileRename(MusicFileRenamerConfig config, Mp3FileInfo mp3Info, FileSystemInfo fileInfo)
+  private void ProcessFileRename(MusicFileRenamerConfig config, Mp3FileInfo songInfo, FileSystemInfo fileInfo)
   {
-    var targetFileName = Path.Join(config.OutputDir, Mp3RenameHelper.Process(mp3Info, config.FileNamePattern));
-    var targetDir = Path.GetDirectoryName(targetFileName);
+    var targetFileName = Path.Join(config.OutputDir,
+      GenerateFileName(songInfo, config.FileNamePattern));
 
+    var targetDir = Path.GetDirectoryName(targetFileName);
+    
     if (string.IsNullOrWhiteSpace(targetDir))
       throw new Exception($"Unable to work out target dir for: {targetFileName}");
 
@@ -99,5 +101,19 @@ public class MusicFileRenamer : IMusicFileRenamer
       File.Delete(targetFileName);
 
     File.Move(fileInfo.FullName, targetFileName);
+  }
+
+  private static string GenerateFileName(Mp3FileInfo info, string template)
+  {
+    return template
+      .Replace("{ext}", info.FileExtension)
+      .Replace("{albumTitle}", info.AlbumTitle)
+      .Replace("{songTitle}", info.SongTitle)
+      .Replace("{artist}", info.Artist)
+      .Replace("{aDirLetter}", info.ArtistDirLetter)
+      .Replace("{songNumber}", info.SongPosition.PadLeftInt(2))
+      .Replace("{songNumber3}", info.SongPosition.PadLeftInt(3))
+      .Replace("{songYear}", info.SongDate.Year.ToString("D"))
+      .ToSafeFilePath();
   }
 }
