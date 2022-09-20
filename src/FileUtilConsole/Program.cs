@@ -30,15 +30,25 @@ var serviceProvider = new ServiceCollection()
 //    FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
 //  });
 
-serviceProvider
-  .GetRequiredService<ISimpleFileRenamer>()
-  .Rename(new SimpleFileRenamerConfig
-  {
-    SourceDir = @"D:\Test-Data\Music",
-    OutputDir = @"D:\Test-Data\Renamed\wav",
-    FileExtension = ".wav",
-    FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
-  });
+//serviceProvider
+//  .GetRequiredService<ISimpleFileRenamer>()
+//  .Rename(new SimpleFileRenamerConfig
+//  {
+//    SourceDir = @"D:\Test-Data\Music",
+//    OutputDir = @"D:\Test-Data\Renamed\wav",
+//    FileExtension = ".wav",
+//    FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
+//  });
+
+//serviceProvider
+//  .GetRequiredService<ISimpleFileRenamer>()
+//  .Rename(new SimpleFileRenamerConfig
+//  {
+//    SourceDir = @"D:\Test-Data\Music",
+//    OutputDir = @"D:\Test-Data\Renamed\cdg",
+//    FileExtension = ".cdg",
+//    FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
+//  });
 
 Console.WriteLine();
 Console.WriteLine();
