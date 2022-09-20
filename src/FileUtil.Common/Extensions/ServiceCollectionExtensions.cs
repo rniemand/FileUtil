@@ -1,3 +1,4 @@
+using FileUtil.Common.Renamers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -34,6 +35,7 @@ public static class ServiceCollectionExtensions
 
   public static IServiceCollection AddFileUtils(this IServiceCollection services)
   {
-    return services;
+    return services
+      .AddSingleton<IMusicFileRenamer, MusicFileRenamer>();
   }
 }

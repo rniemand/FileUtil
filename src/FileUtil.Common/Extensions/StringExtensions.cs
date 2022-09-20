@@ -24,4 +24,7 @@ public static class StringExtensions
 
   public static string PadLeftInt(this int value, int padding, char paddingChar = '0') =>
     value.ToString("D").PadLeft(padding, paddingChar);
+
+  public static string[] ExtractDirParts(this string path) =>
+    path.Split(new[] { "/", "\\" }, StringSplitOptions.RemoveEmptyEntries);
 }
