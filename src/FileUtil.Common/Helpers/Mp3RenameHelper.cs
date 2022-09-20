@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using FileUtil.Common.Extensions;
+using FileUtil.Common.Models.Infos;
 using MediaInfo;
 
 namespace FileUtil.Common.Helpers;
@@ -12,7 +13,7 @@ public class Mp3RenameHelper
 
   public static string Process(Mp3FileInfo info, string template)
   {
-    var processed = template
+    return template
       .Replace("{ext}", info.FileExtension)
       .Replace("{albumTitle}", info.AlbumTitle)
       .Replace("{songTitle}", info.SongTitle)
@@ -20,15 +21,8 @@ public class Mp3RenameHelper
       .Replace("{aDirLetter}", info.ArtistDirLetter)
       .Replace("{songNumber}", info.SongPosition.PadLeftInt(2))
       .Replace("{songNumber3}", info.SongPosition.PadLeftInt(3))
-      .Replace("{songYear}", info.SongDate.Year.ToString("D"));
-
-    var parts = processed.Split(new[] { "/", "\\" }, StringSplitOptions.RemoveEmptyEntries);
-
-    return Path.Join(parts)
-      .Replace(",", "")
-      .Replace("\"", "")
-      .Replace("?", "")
-      .Replace(":", "");
+      .Replace("{songYear}", info.SongDate.Year.ToString("D"))
+      .ToSafeFilePath();
   }
 
   public static Mp3FileInfo ExtractMp3FileInfo(FileInfo file, MediaInfoWrapper mi, string rootDir)

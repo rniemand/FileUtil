@@ -1,8 +1,8 @@
 using FileUtil.Common.Extensions;
 using FileUtil.Common.Helpers;
 using FileUtil.Common.Models.Config;
+using FileUtil.Common.Models.Infos;
 using MediaInfo;
-using Microsoft.Extensions.FileSystemGlobbing.Internal;
 using RnCore.Logging;
 
 namespace FileUtil.Common.Renamers;

@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace FileUtil.Common.Extensions;
@@ -27,4 +28,18 @@ public static class StringExtensions
 
   public static string[] ExtractDirParts(this string path) =>
     path.Split(new[] { "/", "\\" }, StringSplitOptions.RemoveEmptyEntries);
+
+  public static bool IgnoreCaseEquals(this string src, string compare) =>
+    src.Equals(compare, StringComparison.InvariantCultureIgnoreCase);
+
+  public static string ToSafeFilePath(this string filePath)
+  {
+    var parts = filePath.ExtractDirParts();
+
+    return Path.Join(parts)
+      .Replace(",", "")
+      .Replace("\"", "")
+      .Replace("?", "")
+      .Replace(":", "");
+  }
 }

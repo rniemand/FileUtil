@@ -1,4 +1,4 @@
-namespace FileUtil.Common.Helpers;
+namespace FileUtil.Common.Models.Infos;
 
 public class Mp3FileInfo
 {
