@@ -15,7 +15,7 @@ public interface IMusicFileRenamer
 public class MusicFileRenamer : IMusicFileRenamer
 {
   private readonly ILoggerAdapter<MusicFileRenamer> _logger;
-  private readonly HashSet<string> _formats = new() { ".mp3", ".m4a" };
+  private readonly HashSet<string> _formats = new() { ".mp3", ".m4a", ".mp4" };
 
   public MusicFileRenamer(ILoggerAdapter<MusicFileRenamer> logger)
   {

@@ -27,11 +27,13 @@ public class SimpleFileRenamer : ISimpleFileRenamer
     if (files.Count == 0)
       return this;
 
+    var processedCount = 0;
     _logger.LogInformation("Processing {count} files", files.Count);
     foreach (var file in files)
     {
       var fileInfo = new BasicFileInfo(file);
       var targetPath = Path.Join(config.OutputDir, GenerateFilePath(fileInfo, config.FileNamePattern));
+      processedCount++;
 
       var targetDir = Path.GetDirectoryName(targetPath);
       if (string.IsNullOrWhiteSpace(targetDir))
@@ -43,7 +45,8 @@ public class SimpleFileRenamer : ISimpleFileRenamer
       if (File.Exists(targetPath))
         File.Delete(targetPath);
 
-      _logger.LogDebug("Moving file:\n\t{source} =>\n\t{dest}", file.FullName, targetPath);
+      _logger.LogDebug("Moving file ({current} of {total}):\n\t{source} =>\n\t{dest}",
+        processedCount, files.Count, file.FullName, targetPath);
       File.Move(file.FullName, targetPath);
     }
 

@@ -1,4 +1,4 @@
-﻿using FileUtil.Common.Extensions;
+using FileUtil.Common.Extensions;
 
 namespace FileUtil.Common.Models.Infos;
 
@@ -12,7 +12,7 @@ public class BasicFileInfo
   public BasicFileInfo(FileInfo fi)
   {
     FileInfo = fi;
-    FileName = fi.Name;
+    FileName = Path.GetFileNameWithoutExtension(fi.Name);
     Extension = fi.Extension.ToLower().Replace(".", "");
     FileNameDirLetter = fi.Name.GetFirstDirLetter();
   }

@@ -8,7 +8,16 @@ var serviceProvider = new ServiceCollection()
   .AddFileUtils()
   .BuildServiceProvider();
 
-const string scanDir = @"\\192.168.0.60\Documents\Gus-Documents\[Unsorted]\Karaoke\_batch";
+const string scanDir = @"\\192.168.0.60\Documents\Gus-Documents\[Unsorted]\Music\F";
+
+/*
+ * Task List
+ *  - fix duplication of file name extensions... (simple renamer)
+ *  - Try extract MIDI information from files
+ *  - logic to clear up bad spacing in file names
+ *  - logic to case file names better
+ *  - Add rename transaction log for rollback etc.
+ */
 
 serviceProvider
   .GetRequiredService<IMusicFileRenamer>()
@@ -76,6 +85,13 @@ serviceProvider
   .Rename(new SimpleFileRenamerConfig
   {
     SourceDir = scanDir,
+    OutputDir = @"\\192.168.0.60\Documents\Gus-Documents\doc-files",
+    FileExtension = ".txt",
+    FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
+  })
+  .Rename(new SimpleFileRenamerConfig
+  {
+    SourceDir = scanDir,
     OutputDir = @"\\192.168.0.60\Documents\Gus-Documents\kar",
     FileExtension = ".kar",
     FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
@@ -109,6 +125,7 @@ serviceProvider
     FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
   });
 
-
 Console.WriteLine();
-Console.WriteLine();
+Console.WriteLine("=======================================================================");
+Console.WriteLine("= Fin.");
+Console.WriteLine("=======================================================================");

@@ -17,7 +17,7 @@ public static class StringExtensions
     if (int.TryParse(first, out var _))
       return "#";
 
-    if (first == "_" || first == "(" || first == "-")
+    if (first == "_" || first == "(" || first == "-" || first == "%")
       return "#";
 
     if (UpperAlphaRxp.IsMatch(first))
