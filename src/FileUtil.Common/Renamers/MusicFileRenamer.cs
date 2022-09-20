@@ -36,6 +36,7 @@ public class MusicFileRenamer : IMusicFileRenamer
 
     var counter = 1;
     _logger.LogInformation("Processing {count} music files", musicFiles.Count);
+
     foreach (var mediaFile in musicFiles)
     {
       _logger.LogTrace("Processing {count} of {total} file(s)", counter++, musicFiles.Count);
@@ -85,7 +86,7 @@ public class MusicFileRenamer : IMusicFileRenamer
     if (File.Exists(errorPath))
       File.Delete(errorPath);
 
-    _logger.LogDebug("Moving problem file: {original} => {new}", mediaFile.FullName, errorPath);
+    _logger.LogDebug("Moving problem file: \n\t{original} => \n\t{new}", mediaFile.FullName, errorPath);
     File.Move(mediaFile.FullName, errorPath);
   }
 
@@ -102,7 +103,7 @@ public class MusicFileRenamer : IMusicFileRenamer
     if (!Directory.Exists(targetDir))
       Directory.CreateDirectory(targetDir);
 
-    _logger.LogInformation("Renaming: {old} => {new}", fileInfo.FullName, targetFileName);
+    _logger.LogInformation("Renaming:\n\t{old} => \n\t{new}", fileInfo.FullName, targetFileName);
 
     if (File.Exists(targetFileName))
       File.Delete(targetFileName);

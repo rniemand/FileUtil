@@ -43,7 +43,7 @@ public class SimpleFileRenamer : ISimpleFileRenamer
       if (File.Exists(targetPath))
         File.Delete(targetPath);
 
-      _logger.LogDebug("Moving file: {source} => {dest}", file.FullName, targetPath);
+      _logger.LogDebug("Moving file:\n\t{source} =>\n\t{dest}", file.FullName, targetPath);
       File.Move(file.FullName, targetPath);
     }
 
