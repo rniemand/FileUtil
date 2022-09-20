@@ -1,7 +1,5 @@
 using FileUtil.Common.Extensions;
-using FileUtil.Common.Models.Config;
-using FileUtil.Common.Renamers;
-using FileUtilConsole;
+using FileUtilConsole.Scenarios;
 using Microsoft.Extensions.DependencyInjection;
 
 var serviceProvider = new ServiceCollection()
@@ -17,9 +15,10 @@ var serviceProvider = new ServiceCollection()
  *  - logic to case file names better
  *  - Add rename transaction log for rollback etc.
  *  - Add ability to de-dupe a folder (i.e. flatten it)
+ *  - Ability to clean up directory based on rules (DB backups)
  */
 
-// GusDocumentProcessor.Run(serviceProvider);
+GameBoyProcessor.ZipIngestedRomFiles(serviceProvider);
 
 
 Console.WriteLine();

@@ -37,6 +37,7 @@ public static class ServiceCollectionExtensions
   {
     return services
       .AddSingleton<IMusicFileRenamer, MusicFileRenamer>()
-      .AddSingleton<ISimpleFileRenamer, SimpleFileRenamer>();
+      .AddSingleton<ISimpleFileRenamer, SimpleFileRenamer>()
+      .AddSingleton<IFileZipper, FileZipper>();
   }
 }

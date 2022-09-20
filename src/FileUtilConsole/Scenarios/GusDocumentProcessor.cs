@@ -2,7 +2,7 @@ using FileUtil.Common.Models.Config;
 using FileUtil.Common.Renamers;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FileUtilConsole;
+namespace FileUtilConsole.Scenarios;
 
 class GusDocumentProcessor
 {
