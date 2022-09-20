@@ -20,6 +20,9 @@ public static class StringExtensions
     if (first == "_" || first == "(" || first == "-" || first == "%")
       return "#";
 
+    if (first == "É")
+      return "E";
+
     if (UpperAlphaRxp.IsMatch(first))
       return first;
 
