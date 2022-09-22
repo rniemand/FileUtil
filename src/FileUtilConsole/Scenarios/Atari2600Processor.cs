@@ -7,7 +7,6 @@ namespace FileUtilConsole.Scenarios;
 
 class Atari2600Processor
 {
-  private const string IngestDir = @"\\192.168.0.60\Games\Roms\_current";
   private const string OutputDir = @"\\192.168.0.60\Games\Roms\Atari 2600";
 
   public static void IngestRomFiles(IServiceProvider serviceProvider)
@@ -20,14 +19,14 @@ class Atari2600Processor
       .GetRequiredService<ISimpleFileRenamer>()
       .Rename(new SimpleFileRenamerConfig
       {
-        SourceDir = IngestDir,
+        SourceDir = AppConstants.RomWorkingDir,
         OutputDir = OutputDir,
         FileExtension = ".bin",
         FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
       })
       .Rename(new SimpleFileRenamerConfig
       {
-        SourceDir = IngestDir,
+        SourceDir = AppConstants.RomWorkingDir,
         OutputDir = OutputDir,
         FileExtension = ".zip",
         FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"

@@ -7,7 +7,6 @@ namespace FileUtilConsole.Scenarios;
 
 class Nintendo64Processor
 {
-  private const string IngestDir = @"\\192.168.0.60\Games\Roms\_current";
   private const string OutputDir = @"\\192.168.0.60\Games\Roms\Nintendo64";
 
   public static void IngestRomFiles(IServiceProvider serviceProvider)
@@ -16,14 +15,14 @@ class Nintendo64Processor
       .GetRequiredService<ISimpleFileRenamer>()
       .Rename(new SimpleFileRenamerConfig
       {
-        SourceDir = IngestDir,
+        SourceDir = AppConstants.RomWorkingDir,
         OutputDir = OutputDir,
         FileExtension = ".z64",
         FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
       })
       .Rename(new SimpleFileRenamerConfig
       {
-        SourceDir = IngestDir,
+        SourceDir = AppConstants.RomWorkingDir,
         OutputDir = OutputDir,
         FileExtension = ".zip",
         FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"

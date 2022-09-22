@@ -16,9 +16,11 @@ var serviceProvider = new ServiceCollection()
  *  - Add rename transaction log for rollback etc.
  *  - Add ability to de-dupe a folder (i.e. flatten it)
  *  - Ability to clean up directory based on rules (DB backups)
+ *  - Ability to search for file patterns and delete them - e.g. "(J)"
  */
 
-GameBoyProcessor.ZipIngestedRomFiles(serviceProvider);
+NeoGeoProcessor.IngestRomFiles(serviceProvider);
+NeoGeoProcessor.ZipIngestedRomFiles(serviceProvider);
 
 
 Console.WriteLine();
