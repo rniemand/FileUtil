@@ -3,7 +3,7 @@ using FileUtil.Common.Renamers;
 using Microsoft.Extensions.DependencyInjection;
 using RnCore.Logging;
 
-namespace FileUtilConsole.Scenarios;
+namespace FileUtilConsole.Scenarios.RomFiles;
 
 class MameProcessor
 {

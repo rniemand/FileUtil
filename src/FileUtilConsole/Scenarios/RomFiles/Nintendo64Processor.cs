@@ -1,12 +1,13 @@
 using FileUtil.Common.Models.Config;
 using FileUtil.Common.Renamers;
 using Microsoft.Extensions.DependencyInjection;
+using RnCore.Logging;
 
-namespace FileUtilConsole.Scenarios;
+namespace FileUtilConsole.Scenarios.RomFiles;
 
-class GameGearProcessor
+class Nintendo64Processor
 {
-  private const string OutputDir = @"\\192.168.0.60\Games\Roms\GameGear";
+  private const string OutputDir = @"\\192.168.0.60\Games\Roms\Nintendo64";
 
   public static void IngestRomFiles(IServiceProvider serviceProvider)
   {
@@ -16,7 +17,7 @@ class GameGearProcessor
       {
         SourceDir = AppConstants.RomWorkingDir,
         OutputDir = OutputDir,
-        FileExtension = ".gg",
+        FileExtension = ".z64",
         FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
       })
       .Rename(new SimpleFileRenamerConfig
@@ -31,11 +32,15 @@ class GameGearProcessor
   public static void ZipIngestedRomFiles(IServiceProvider serviceProvider)
   {
     serviceProvider
+      .GetRequiredService<ILoggerAdapter<Nintendo64Processor>>()
+      .LogInformation("Starting to process files");
+
+    serviceProvider
       .GetRequiredService<IFileZipper>()
       .Run(new FileZipperConfig
       {
         SourceDir = OutputDir,
-        FileExtensions = new[] { ".gg" },
+        FileExtensions = new[] { ".z64" },
         FileNamePattern = "{fileName}.zip",
         RecurseDirs = true,
         DeleteTargetFileIfExists = true,

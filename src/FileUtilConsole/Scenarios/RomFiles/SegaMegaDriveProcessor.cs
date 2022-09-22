@@ -3,15 +3,15 @@ using FileUtil.Common.Renamers;
 using Microsoft.Extensions.DependencyInjection;
 using RnCore.Logging;
 
-namespace FileUtilConsole.Scenarios;
+namespace FileUtilConsole.Scenarios.RomFiles;
 
-class GameBoyAdvancedProcessor
+class SegaMegaDriveProcessor
 {
-  private const string OutputDir = @"\\192.168.0.60\Games\Roms\GameBoyAdvanced";
+  private const string OutputDir = @"\\192.168.0.60\Games\Roms\Sega-MegaDrive";
 
   public static void IngestRomFiles(IServiceProvider serviceProvider)
   {
-    var logger = serviceProvider.GetRequiredService<ILoggerAdapter<GameBoyAdvancedProcessor>>();
+    var logger = serviceProvider.GetRequiredService<ILoggerAdapter<SegaMegaDriveProcessor>>();
     logger.LogInformation("Starting to ingest ROM files");
 
     serviceProvider
@@ -20,7 +20,7 @@ class GameBoyAdvancedProcessor
       {
         SourceDir = AppConstants.RomWorkingDir,
         OutputDir = OutputDir,
-        FileExtension = ".gba",
+        FileExtension = ".bin",
         FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
       })
       .Rename(new SimpleFileRenamerConfig
@@ -29,6 +29,13 @@ class GameBoyAdvancedProcessor
         OutputDir = OutputDir,
         FileExtension = ".zip",
         FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
+      })
+      .Rename(new SimpleFileRenamerConfig
+      {
+        SourceDir = AppConstants.RomWorkingDir,
+        OutputDir = OutputDir,
+        FileExtension = ".7z",
+        FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
       });
 
     logger.LogInformation("All done!");
@@ -36,7 +43,7 @@ class GameBoyAdvancedProcessor
 
   public static void ZipIngestedRomFiles(IServiceProvider serviceProvider)
   {
-    var logger = serviceProvider.GetRequiredService<ILoggerAdapter<GameBoyAdvancedProcessor>>();
+    var logger = serviceProvider.GetRequiredService<ILoggerAdapter<SegaMegaDriveProcessor>>();
     logger.LogInformation("Starting to ZIP ROM files");
 
     serviceProvider
@@ -44,7 +51,7 @@ class GameBoyAdvancedProcessor
       .Run(new FileZipperConfig
       {
         SourceDir = OutputDir,
-        FileExtensions = new[] { ".gba" },
+        FileExtensions = new[] { ".bin" },
         FileNamePattern = "{fileName}.zip",
         RecurseDirs = true,
         DeleteTargetFileIfExists = true,

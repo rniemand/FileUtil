@@ -1,5 +1,5 @@
 using FileUtil.Common.Extensions;
-using FileUtilConsole.Scenarios;
+using FileUtilConsole.Scenarios.RomFiles;
 using Microsoft.Extensions.DependencyInjection;
 
 var serviceProvider = new ServiceCollection()
@@ -17,10 +17,11 @@ var serviceProvider = new ServiceCollection()
  *  - Add ability to de-dupe a folder (i.e. flatten it)
  *  - Ability to clean up directory based on rules (DB backups)
  *  - Ability to search for file patterns and delete them - e.g. "(J)"
+ *  - Ability to discover and unpack .7z files
  */
 
-NeoGeoProcessor.IngestRomFiles(serviceProvider);
-NeoGeoProcessor.ZipIngestedRomFiles(serviceProvider);
+TurboGraphicsProcessor.IngestRomFiles(serviceProvider);
+TurboGraphicsProcessor.ZipIngestedRomFiles(serviceProvider);
 
 
 Console.WriteLine();

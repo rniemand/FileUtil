@@ -3,16 +3,15 @@ using FileUtil.Common.Renamers;
 using Microsoft.Extensions.DependencyInjection;
 using RnCore.Logging;
 
-namespace FileUtilConsole.Scenarios;
+namespace FileUtilConsole.Scenarios.RomFiles;
 
-class Atari2600Processor
+class GameBoyColorProcessor
 {
-  private const string OutputDir = @"\\192.168.0.60\Games\Roms\Atari 2600";
+  private const string OutputDir = @"\\192.168.0.60\Games\Roms\GameBoyColor";
 
   public static void IngestRomFiles(IServiceProvider serviceProvider)
   {
-    var logger = serviceProvider.GetRequiredService<ILoggerAdapter<Atari2600Processor>>();
-
+    var logger = serviceProvider.GetRequiredService<ILoggerAdapter<GameBoyColorProcessor>>();
     logger.LogInformation("Starting to ingest ROM files");
 
     serviceProvider
@@ -21,7 +20,7 @@ class Atari2600Processor
       {
         SourceDir = AppConstants.RomWorkingDir,
         OutputDir = OutputDir,
-        FileExtension = ".bin",
+        FileExtension = ".gbc",
         FileNamePattern = "{fileNameDirLetter}\\{fileName}.{ext}"
       })
       .Rename(new SimpleFileRenamerConfig
@@ -37,16 +36,21 @@ class Atari2600Processor
 
   public static void ZipIngestedRomFiles(IServiceProvider serviceProvider)
   {
+    var logger = serviceProvider.GetRequiredService<ILoggerAdapter<GameBoyColorProcessor>>();
+    logger.LogInformation("Starting to ZIP ROM files");
+
     serviceProvider
       .GetRequiredService<IFileZipper>()
       .Run(new FileZipperConfig
       {
         SourceDir = OutputDir,
-        FileExtensions = new[] { ".bin" },
+        FileExtensions = new[] { ".gbc" },
         FileNamePattern = "{fileName}.zip",
         RecurseDirs = true,
         DeleteTargetFileIfExists = true,
         DeleteOnSuccess = true
       });
+
+    logger.LogInformation("All done.");
   }
 }
